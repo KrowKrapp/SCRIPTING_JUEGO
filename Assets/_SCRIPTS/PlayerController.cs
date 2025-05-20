@@ -1,11 +1,11 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     private Rigidbody2D rb;
-    private Animator anim;
     private bool isGrounded;
 
     public Transform groundCheck;
@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -30,8 +29,7 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
 
-        anim.SetFloat("Speed", Mathf.Abs(move));
-        anim.SetBool("IsGrounded", isGrounded);
+       
     }
 
     void FixedUpdate()
