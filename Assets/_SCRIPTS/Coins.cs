@@ -6,27 +6,49 @@ public class Coin : MonoBehaviour
     public static event Action<int> OnCoinCollected;
 
     [SerializeField] private int coinValue = 1;
-    private bool collected = false;
+    [SerializeField] private string coinID;
+
+    private void Start()
+    {
+        if (string.IsNullOrEmpty(coinID))
+        {
+            Debug.LogWarning("CoinID not set! Coin will always respawn.");
+            return;
+        }
+
+        if (PlayerPrefs.GetInt("Coin_" + coinID, 0) == 1)
+        {
+            gameObject.SetActive(false); // Hide permanently if already collected
+        }
+        else
+        {
+            gameObject.SetActive(true); // Keep active if not collected
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collected) return;
+        if (!gameObject.activeSelf) return;
 
         if (other.CompareTag("Player"))
         {
-            collected = true;
+            PlayerPrefs.SetInt("Coin_" + coinID, 1);
+            PlayerPrefs.Save();
 
-            // Evento para sonido, UI, etc.
             OnCoinCollected?.Invoke(coinValue);
-
-            // Desactivar objeto en lugar de destruirlo
             gameObject.SetActive(false);
         }
     }
 
-    public void ResetCoin()
+#if UNITY_EDITOR
+    // Only runs in the Unity Editor
+    private void OnValidate()
     {
-        collected = false;
-        gameObject.SetActive(true);
+        if (string.IsNullOrEmpty(coinID))
+        {
+            coinID = Guid.NewGuid().ToString(); // Generates ONCE
+            UnityEditor.EditorUtility.SetDirty(this); // Marks object as changed
+        }
     }
+#endif
 }
