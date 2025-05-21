@@ -8,7 +8,7 @@ public class UiManager : MonoBehaviour
     GameManager gameManager;
     [SerializeField] TextMeshProUGUI uitext;
 
-    private void Awake()
+    private void Start()
     {
         gameManager = GameManager.instance;
         UpdateScore(0);

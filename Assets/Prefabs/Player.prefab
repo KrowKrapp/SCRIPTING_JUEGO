@@ -178,8 +178,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4301199009393669540}
   - component: {fileID: 8157184656137238748}
+  - component: {fileID: 203197296937430996}
   - component: {fileID: 6355208711329047761}
-  - component: {fileID: 70235718187043480}
   - component: {fileID: 3462034532321099308}
   m_Layer: 0
   m_Name: Player
@@ -260,6 +260,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &203197296937430996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8045999636394506403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63bec4f48d872d54c991a0e7d17ed4aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpForce: 8
+  groundCheck: {fileID: 8944618092186601482}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckRadius: 0.3
+  groundCheckOffset: {x: 0, y: -0.5, z: 0}
 --- !u!50 &6355208711329047761
 Rigidbody2D:
   serializedVersion: 5
@@ -287,24 +307,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &70235718187043480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8045999636394506403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10506ad0e0d99346a4befc1652ce64b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 10
-  groundCheck: {fileID: 8944618092186601482}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 12
 --- !u!61 &3462034532321099308
 BoxCollider2D:
   m_ObjectHideFlags: 0

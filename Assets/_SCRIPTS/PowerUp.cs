@@ -11,7 +11,7 @@ public class PowerUp : MonoBehaviour
         {
             if (type == PowerType.SpeedBoost)
             {
-                other.GetComponent<PlayerController>().moveSpeed += 2f;
+                other.GetComponent<PlayerControllerScript>().moveSpeed += 2f;
             }
             else if (type == PowerType.ExtraLife)
             {

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerControllerScript : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
@@ -11,9 +11,21 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    public float groundCheckRadius = 0.3f;
+    public Vector3 groundCheckOffset = new Vector3(0, -0.5f, 0); // Posici�n relativa al jugador
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (groundCheck == null)
+        {
+            Debug.LogWarning("GroundCheck no asignado, creando por defecto.");
+            GameObject gc = new GameObject("GroundCheck");
+            gc.transform.SetParent(transform);
+            gc.transform.localPosition = groundCheckOffset;
+            groundCheck = gc.transform;
+        }
     }
 
     void Update()
@@ -26,9 +38,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        if (groundCheck == null)
+            return;
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        Debug.DrawLine(groundCheck.position, groundCheck.position + Vector3.down * groundCheckRadius, isGrounded ? Color.green : Color.red);
     }
 
     public void HandleMovement(float direction)
