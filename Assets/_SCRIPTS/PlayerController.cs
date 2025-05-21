@@ -18,18 +18,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float move = Input.GetAxis("Horizontal");
-        rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
+        HandleMovement(Input.GetAxis("Horizontal"));
 
-        if (move != 0)
-            transform.localScale = new Vector3(Mathf.Sign(move), 1, 1); // Flip sprite
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump"))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            Jump();
         }
-
-       
     }
 
     void FixedUpdate()
@@ -37,18 +31,34 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
     }
 
-    //void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("PowerUp"))
-    //    {
-    //        // Aqu� puedes aplicar el efecto del power-up
-    //        Destroy(other.gameObject);
-    //    }
+    public void HandleMovement(float direction)
+    {
+        rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
 
-    //    if (other.CompareTag("Trap") || other.CompareTag("Enemy"))
-    //    {
-    //        // Aqu� puedes reiniciar nivel o quitar vida
-    //        Debug.Log("Dano al jugador");
-    //    }
-    //}
+        if (direction != 0)
+            transform.localScale = new Vector3(Mathf.Sign(direction), 1, 1);
+    }
+
+    public void Jump()
+    {
+        if (isGrounded)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+    }
+
+    public Vector2 GetVelocity()
+    {
+        return rb.linearVelocity;
+    }
+
+    public void SetGrounded(bool grounded)
+    {
+        isGrounded = grounded;
+    }
+
+    public bool GetGrounded()
+    {
+        return isGrounded;
+    }
 }
