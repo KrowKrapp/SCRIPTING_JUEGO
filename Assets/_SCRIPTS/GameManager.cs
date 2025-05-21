@@ -18,4 +18,22 @@ public class GameManager : MonoBehaviour
         score += amount;
         Debug.Log("Score: " + score);
     }
+
+    private void OnEnable()
+    {
+        Coin.OnCoinCollected += AddScore;
+    }
+
+    private void OnDisable()
+    {
+        Coin.OnCoinCollected -= AddScore;
+    }
+
+    public void RestartLevel()
+    {
+        // Reiniciar el nivel actual
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+
 }

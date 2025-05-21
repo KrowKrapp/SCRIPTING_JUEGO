@@ -7,7 +7,9 @@ public class Trap : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("El jugador tocó una trampa");
-            // Lógica de daño o reinicio
+           
+
+            GameManager.instance.RestartLevel();    
         }
     }
 }

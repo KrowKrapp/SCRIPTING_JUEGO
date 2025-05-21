@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -37,18 +37,18 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("PowerUp"))
-        {
-            // Aqu� puedes aplicar el efecto del power-up
-            Destroy(other.gameObject);
-        }
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("PowerUp"))
+    //    {
+    //        // Aqu� puedes aplicar el efecto del power-up
+    //        Destroy(other.gameObject);
+    //    }
 
-        if (other.CompareTag("Trap") || other.CompareTag("Enemy"))
-        {
-            // Aqu� puedes reiniciar nivel o quitar vida
-            Debug.Log("Dano al jugador");
-        }
-    }
+    //    if (other.CompareTag("Trap") || other.CompareTag("Enemy"))
+    //    {
+    //        // Aqu� puedes reiniciar nivel o quitar vida
+    //        Debug.Log("Dano al jugador");
+    //    }
+    //}
 }
